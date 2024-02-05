@@ -7,8 +7,25 @@
 // 3. Получение самой дорогой покупки в чеке.
 // 4. Подсчет средней стоимости одного товара в чеке.
 
-function createCheck() {
-  return [];
+function createReceipt() {
+  const  receipt = []
+  receipt.push({name:'car', qty:1,  price:500});
+  receipt.push({name:'phone', qty:5,  price:100});
+  return receipt;
 }
 
-function printCheck(arr) {}
+function printCheck(arr) {
+  
+  return arr
+
+}
+
+function  getTotalPrice(arr) {
+}
+
+function  getMostExpensiveProduct(arr) {}
+
+function   getAveragePricePerItem(arr) {}
+
+
+console.log(createReceipt());
