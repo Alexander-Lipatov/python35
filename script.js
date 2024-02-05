@@ -1,31 +1,25 @@
-// Задание 2
-// Создать массив, описывающий чек в магазине. Каждый эле-
-// мент массива состоит из названия товара, количества и цены за
-// единицу товара. Написать следующие функции.
-// 1. Распечатка чека на экран.
-// 2. Подсчет общей суммы покупки.
-// 3. Получение самой дорогой покупки в чеке.
-// 4. Подсчет средней стоимости одного товара в чеке.
+function sumTo(n) {
+  return n == 1 ? n : n + sumTo(n - 1);
+}
+console.log(sumTo(100));
 
-function createReceipt() {
-  const  receipt = []
-  receipt.push({name:'car', qty:1,  price:500});
-  receipt.push({name:'phone', qty:5,  price:100});
-  return receipt;
+function factorial(n) {
+  if (n == 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
 }
 
-function printCheck(arr) {
-  
-  return arr
+console.log(factorial(5));
 
+function fibo(n) {
+  if (n == 1 || n == 2) {
+    return 1;
+  } else {
+    return fibo(n - 1) + fibo(n - 2);
+  }
 }
+console.log(fibo(8));
 
-function  getTotalPrice(arr) {
-}
-
-function  getMostExpensiveProduct(arr) {}
-
-function   getAveragePricePerItem(arr) {}
-
-
-console.log(createReceipt());
+// 1 1 2 3 5 8 13 21
