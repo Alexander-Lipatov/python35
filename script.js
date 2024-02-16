@@ -115,9 +115,9 @@ class colorButton extends MyButton {
   }
 }
 
-const btn1 = new MyButton("Button_1", "btn-aquamarine");
+const btn1 = new MyButton("Button_1", "btn");
 const btn2 = new MyButton("Button_2", "btn");
-const btn3 = new MyButton("Button_3", "btn-cadetblue");
+const btn3 = new MyButton("Button_3", "btn");
 
 btn1.show();
 btn2.show();
@@ -126,5 +126,5 @@ btn2.show();
 btn3.value = 'blablabla'
 btn3.show();
 
-const btn4 = new colorButton("Button_4", "btn-danger", "white-text");
+const btn4 = new colorButton("Button_4", "btn", "btn-danger");
 btn4.show();

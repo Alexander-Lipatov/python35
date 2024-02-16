@@ -65,29 +65,25 @@ ul {
   gap: 30px;
 }
 
-button {
+.btn {
   width: 100px;
   height: 40px;
-  background: none;
+  background: rgb(242, 242, 242);
   border: 1px solid gray;
   border-radius: 10px;
 }
-button:hover {
+
+.btn:hover {
   cursor: pointer;
   background-color: lightgray;
   transition: all .3s
 }
 
-.btn-aquamarine{
-  background-color: aquamarine;
-}
-.btn-cadetblue{
-  background-color: cadetblue;
-}
 .btn-danger{
+  color:white;
   background-color: red;
 }
 
-button.white-text{
-  color:white
+.btn-danger:hover{
+  background-color: brown;
 }
