@@ -8,7 +8,7 @@ body {
   width: 100%;
 }
 
-#task1{
+#task1 {
   margin: 0px auto;
   width: 30%;
   text-align: center;
@@ -31,22 +31,22 @@ body {
 }
 
 .box > p {
-    height: 60px;
-    display: flex;
-    background-color: lightskyblue;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: xx-large;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 60px;
+  display: flex;
+  background-color: lightskyblue;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: xx-large;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .box > span {
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(226, 226, 226);
-    font-size: x-large;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(226, 226, 226);
+  font-size: x-large;
 }
 
 ul {
@@ -57,9 +57,37 @@ ul {
   margin: 30px auto;
 }
 
-
-#task4{
+#task4 {
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
+  height: 200px;
+  gap: 30px;
+}
+
+button {
+  width: 100px;
+  height: 40px;
+  background: none;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+button:hover {
+  cursor: pointer;
+  background-color: lightgray;
+  transition: all .3s
+}
+
+.btn-aquamarine{
+  background-color: aquamarine;
+}
+.btn-cadetblue{
+  background-color: cadetblue;
+}
+.btn-danger{
+  background-color: red;
+}
+
+button.white-text{
+  color:white
 }

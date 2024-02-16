@@ -75,43 +75,56 @@ listObj.printList();
 listObj.values = ["C#", "HTML", "JAVA", "Python"];
 listObj.printList();
 
-
-
-
-class MyButton{
-  task4 = document.getElementById('task4')
-  constructor(text, ...btnClass){
-    this.btnText= text;
-    this.btnClass= btnClass;
+class MyButton {
+  task4 = document.getElementById("task4");
+  constructor(text, ...btnClass) {
+    this.btnText = text;
+    this.btnClass = btnClass;
   }
-  show(){
-    const btn = document.createElement('button');
-    btn.className = this.btnClass
+
+  get value() {
+    return this.text;
+  }
+
+  set value(newText) {
+    this.btnText = newText;
+  }
+  show() {
+    const btn = document.createElement("button");
+    btn.className = this.btnClass;
     btn.innerHTML = this.btnText;
-    btn.type = 'button'
+    btn.type = "button";
 
-    this.task4.appendChild(btn)
+    this.task4.appendChild(btn);
   }
 }
 
-class colorButton extends MyButton{
-  text123= 'qwe'
-  printText(){
-    console.log(this.text123);
+class colorButton extends MyButton {
+  constructor(text, btnClass, colorClass) {
+    super(text, btnClass);
+    this.colorClass = colorClass;
   }
-  
-  
+  show() {
+    super.show();
+    const buttons = document.querySelectorAll(`.${this.btnClass[0]}`)
+    buttons.forEach((el)=>{
+      if(el.innerText === this.btnText){
+        el.className +=  ` ${this.colorClass}`;
+      }
+    })
+  }
 }
 
-const btn1 = new colorButton('btn1', 'btn')
-const btn2 = new MyButton('btn2', 'btn')
-const btn3 = new MyButton('btn3', 'btn')
-const btn4 = new MyButton('btn4', 'btn')
+const btn1 = new MyButton("Button_1", "btn-aquamarine");
+const btn2 = new MyButton("Button_2", "btn");
+const btn3 = new MyButton("Button_3", "btn-cadetblue");
 
-btn1.show()
-btn1.printText()
-btn2.show()
-btn3.show()
-btn4.show()
+btn1.show();
+btn2.show();
 
 
+btn3.value = 'blablabla'
+btn3.show();
+
+const btn4 = new colorButton("Button_4", "btn-danger", "white-text");
+btn4.show();
