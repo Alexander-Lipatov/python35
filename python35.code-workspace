@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../Gakmannn/python35"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "python35"
+	}
+}

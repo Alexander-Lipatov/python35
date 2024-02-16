@@ -1,61 +1,117 @@
-// Задание 3
-// Создать объект, описывающий время (часы, минуты, секун-
-// ды), и следующие функции для работы с этим объектом.
-//      1. Функция вывода времени на экран.
-//      2. Функция изменения времени на переданное количество
-// секунд.
-//      3. Функция изменения времени на переданное количество
-// минут.
-//      4. Функция изменения времени на переданное количество
-// часов.
-// Учтите, что в последних 3-х функциях, при изменении одной
-// части времени, может измениться и другая. Например: если ко
-// времени «20:30:45» добавить 30 секунд, то должно получиться
-// «20:31:15», а не «20:30:75».
+const monologue = "To be, or not to be, that is the question...";
+const author = 'William Shakespeare, from "Hamlet"';
+let index = 0;
+const p = document.getElementById("monologue");
 
-function createNowTime() {
-  const date = new Date();
-  return {
-    hours: date.getHours(),
-    minutes: date.getMinutes(),
-    seconds: date.getSeconds(),
-  };
-}
-
-function printTime(timeObj) {
-  console.log(
-    `Текущее время ${timeObj.hours}:${timeObj.minutes}:${timeObj.seconds}`
-  );
-}
-
-function validateTime(timeObj) {
-  if (timeObj.seconds >= 60) {
-    timeObj.minutes += Math.floor(timeObj.seconds / 60);
-    timeObj.seconds = timeObj.seconds % 60;
+function printText() {
+  if (index < monologue.length) {
+    if (monologue.charAt(index) === " ") {
+      p.innerText += " \0";
+    }
+    p.innerText += monologue.charAt(index);
+    index++;
+    setTimeout(() => {
+      printText();
+    }, Math.floor(Math.random() * 100) + 200);
+  } else {
+    p.innerText += "\n" + author;
   }
-  if (timeObj.minutes >= 60) {
-    timeObj.hours += Math.floor(timeObj.minutes / 60);
-    timeObj.minutes %= 60;
-  }
-  if (timeObj.hours >= 24) {
-    timeObj.hours %= 24;
-  }
-  return { ...timeObj };
-}
-function addSeconds(timeObj, seconds = 30) {
-  timeObj.seconds += seconds;
-  validateTime(timeObj);
-  return { ...timeObj };
 }
 
-function addMinutes(timeObj, minutes = 30) {
-  timeObj.minutes += minutes;
-  validateTime(timeObj);
-  return { ...timeObj };
+printText();
+
+const oneDay = 1000 * 60 * 60 * 24;
+const oneHour = 1000 * 60 * 60;
+const oneMinute = 1000 * 60;
+
+function addZeroToTime(number) {
+  return number < 10 ? "0" + number : number;
 }
 
-function addHourse(timeObj, hours = 30) {
-  timeObj.hours += hours;
-  validateTime(timeObj);
-  return { ...timeObj };
+function updateCountdown() {
+  let now = new Date();
+  let nextYear = new Date(now.getFullYear() + 1, 0, 0);
+  let defference = nextYear - now;
+
+  let d = Math.floor(defference / oneDay);
+  let h = Math.floor((defference % oneDay) / oneHour);
+  let m = Math.floor((defference % oneHour) / oneMinute);
+  let s = Math.floor((defference % oneMinute) / 1000);
+
+  days.innerText = addZeroToTime(d);
+  hours.innerText = addZeroToTime(h);
+  minutes.innerText = addZeroToTime(m);
+  seconds.innerText = addZeroToTime(s);
 }
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+class ListOfThings {
+  constructor(list = []) {
+    this.values = list;
+  }
+  printList() {
+    const task3Element = document.getElementById("task3");
+    const ulElement = document.createElement("ul");
+    task3Element.appendChild(ulElement);
+
+    const sortThing = this.values.sort();
+    sortThing.forEach((item) => {
+      const liElement = document.createElement("li");
+      liElement.textContent = item;
+      ulElement.appendChild(liElement);
+    });
+  }
+  add(item) {
+    this.values.push(item);
+  }
+}
+
+const list = ["tomato", "kiwi", "potato", "apple"];
+const listObj = new ListOfThings(list);
+listObj.printList();
+listObj.add("banana");
+listObj.printList();
+listObj.values = ["C#", "HTML", "JAVA", "Python"];
+listObj.printList();
+
+
+
+
+class MyButton{
+  task4 = document.getElementById('task4')
+  constructor(text, ...btnClass){
+    this.btnText= text;
+    this.btnClass= btnClass;
+  }
+  show(){
+    const btn = document.createElement('button');
+    btn.className = this.btnClass
+    btn.innerHTML = this.btnText;
+    btn.type = 'button'
+
+    this.task4.appendChild(btn)
+  }
+}
+
+class colorButton extends MyButton{
+  text123= 'qwe'
+  printText(){
+    console.log(this.text123);
+  }
+  
+  
+}
+
+const btn1 = new colorButton('btn1', 'btn')
+const btn2 = new MyButton('btn2', 'btn')
+const btn3 = new MyButton('btn3', 'btn')
+const btn4 = new MyButton('btn4', 'btn')
+
+btn1.show()
+btn1.printText()
+btn2.show()
+btn3.show()
+btn4.show()
+
+

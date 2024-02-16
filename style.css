@@ -1,0 +1,65 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+html,
+body {
+  width: 100%;
+}
+
+#task1{
+  margin: 0px auto;
+  width: 30%;
+  text-align: center;
+}
+
+.container {
+  margin: 50px auto;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid gray;
+  height: 100px;
+  gap: 20px;
+  padding-inline: 20px;
+  padding-block: 20px;
+}
+
+.box {
+  flex: 1;
+}
+
+.box > p {
+    height: 60px;
+    display: flex;
+    background-color: lightskyblue;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: xx-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.box > span {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(226, 226, 226);
+    font-size: x-large;
+}
+
+ul {
+  border: 1px solid gray;
+  width: 150px;
+  padding: 40px;
+  list-style: decimal;
+  margin: 30px auto;
+}
+
+
+#task4{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
