@@ -1,3 +1,5 @@
+
+'use strict'
 function sumTo(n) {
   return n == 1 ? n : n + sumTo(n - 1);
 }
@@ -31,3 +33,31 @@ function fibo(n) {
 console.log(fibo(5));
 
 // 1 1 2 3 5 8 13 21
+
+let obj = {
+  get propName() {
+    console.log("get");
+    return "Hello World!";
+  },
+  set propName(value) {
+    console.log("set on value", value);
+    return value;
+  },
+};
+
+console.log(obj.propName);
+let o = (obj.propName = 123);
+console.log(o);
+
+const body = document.getElementById("body");
+
+body.addEventListener('click', (e)=>{
+  console.log(this);
+  console.log(e.target);
+},)
+
+
+
+
+// tagName
+
