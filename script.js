@@ -3,22 +3,23 @@ const author = 'William Shakespeare, from "Hamlet"';
 let index = 0;
 const p = document.getElementById("monologue");
 
-function printText() {
+//__________________ЗАДАЧА №1__________________________
+
+function printText(monologue, author, index = 0) {
   if (index < monologue.length) {
-    if (monologue.charAt(index) === " ") {
-      p.innerText += " \0";
-    }
-    p.innerText += monologue.charAt(index);
+    p.innerHTML += monologue.charAt(index);
     index++;
     setTimeout(() => {
-      printText();
+      printText(monologue, author, index);
     }, Math.floor(Math.random() * 100) + 200);
   } else {
     p.innerText += "\n" + author;
   }
 }
 
-printText();
+printText(monologue, author);
+
+//__________________ЗАДАЧА №2__________________________
 
 const oneDay = 1000 * 60 * 60 * 24;
 const oneHour = 1000 * 60 * 60;
@@ -31,7 +32,7 @@ function addZeroToTime(number) {
 function updateCountdown() {
   let now = new Date();
   let nextYear = new Date(now.getFullYear() + 1, 0, 0);
-  let defference = nextYear - now;
+  let defference = nextYear.getTime() - now.getTime();
 
   let d = Math.floor(defference / oneDay);
   let h = Math.floor((defference % oneDay) / oneHour);
@@ -45,6 +46,8 @@ function updateCountdown() {
 }
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+//__________________ЗАДАЧА №3__________________________
 
 class ListOfThings {
   constructor(list = []) {
@@ -75,27 +78,34 @@ listObj.printList();
 listObj.values = ["C#", "HTML", "JAVA", "Python"];
 listObj.printList();
 
+//__________________ЗАДАЧА №4__________________________
+
 class MyButton {
   task4 = document.getElementById("task4");
-  constructor(text, ...btnClass) {
+  constructor(text, btnClass) {
     this.btnText = text;
     this.btnClass = btnClass;
   }
 
   get value() {
-    return this.text;
+    return this.btnText;
   }
 
   set value(newText) {
     this.btnText = newText;
   }
   show() {
-    const btn = document.createElement("button");
+    let btn = this.createElement("button");
+
     btn.className = this.btnClass;
     btn.innerHTML = this.btnText;
     btn.type = "button";
-
+    return btn;
+  }
+  createElement(tag) {
+    const btn = document.createElement(tag);
     this.task4.appendChild(btn);
+    return btn;
   }
 }
 
@@ -105,13 +115,8 @@ class colorButton extends MyButton {
     this.colorClass = colorClass;
   }
   show() {
-    super.show();
-    const buttons = document.querySelectorAll(`.${this.btnClass[0]}`)
-    buttons.forEach((el)=>{
-      if(el.innerText === this.btnText){
-        el.className +=  ` ${this.colorClass}`;
-      }
-    })
+    const btn = super.show();
+    btn.className += ` ${this.colorClass}`;
   }
 }
 
@@ -122,9 +127,11 @@ const btn3 = new MyButton("Button_3", "btn");
 btn1.show();
 btn2.show();
 
-
-btn3.value = 'blablabla'
+btn3.value = "blablabla";
 btn3.show();
 
 const btn4 = new colorButton("Button_4", "btn", "btn-danger");
 btn4.show();
+
+
+
