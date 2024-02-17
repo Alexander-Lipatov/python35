@@ -12,45 +12,50 @@
 // 3. Покупка продукта. Функция принимает название продукта
 // и отмечает его как купленный.
 
-function createProductList() {
-  return [];
-}
-
-function productItem(title, qty, isBuy = false) {
-  return {
-    title,
-    qty,
-    isBuy,
-  };
-}
-
-function printSortList(productList) {
-  productList.sort((a) => (a.isBuy ? 1 : -1));
-  return productList;
-}
-
-function addProduct(list, ...ProductItem) {
-  const isFindProduct = list.find((item) => {
-    if (item.title === ProductItem[0].title) {
-      item.qty += ProductItem[0].qty;
-      return true;
+class MyProduct {
+  constructor(list = []) {
+    this._list = list;
+  }
+  // Вывод продуктов в виде массива
+  printProduct() {
+    const sortedList = this._list.sort((item) => {
+      item.isBuy ? 1 : -1;
+    });
+    return sortedList;
+  }
+  // Добавление продукта
+  addProduct(title, qty, isBuy = false) {
+    const isFindProduct = this._list.find((item) => {
+      if (item.title === title) {
+        item.qty += qty;
+        return true;
+      }
+    });
+    if (!isFindProduct) {
+      this._list.push({ title, qty, isBuy });
     }
-  });
-  if (!isFindProduct) {
-    list.push(...ProductItem);
+  }
+
+  // Покупка продукта по имени
+  bayProduct(title) {
+    const idxProduct = this._list.findIndex((product) => product.title == title);
+    this._list[idxProduct].isBuy = true;
+    return { ...this._list };
   }
 }
 
-function bayProduct(list, title) {
-  const idxProduct = list.findIndex((product) => product.title == title);
-  list[idxProduct].isBuy = true;
-  return { ...list };
-}
 
-const list = createProductList();
-addProduct(list, productItem("apple", 5));
-addProduct(list, productItem("car", 1));
-bayProduct(list, "car");
-bayProduct(list, "apple");
-console.log(printSortList(list));
-console.log(list);
+
+const titleInputEl = document.getElementById('title-prod')
+const qtyInputEl = document.getElementById('title-prod')
+const titleInputEl = document.getElementById('title-prod')
+
+const myProduct = new MyProduct();
+myProduct.addProduct("phone", 1);
+myProduct.addProduct("phone", 1);
+myProduct.bayProduct("phone");
+console.log(myProduct.printProduct());
+
+
+
+

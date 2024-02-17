@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <script src="./script.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="add-product">
+                <div>
+                    <label for="title">Название продукта: </label>
+                    <input id="title-prod" name="title" placeholder="Название" type="text">
+                </div>
+                <div>
+                    <label for="qty">Колличество(шт/кг): </label>
+                    <input name="qty" placeholder="Колличество" type="text">
+                </div>
+
+                <button type="button" id="send-product">Добавить товар в каталог</button>
+
+            </div>
+
+            <div class="print-product"></div>
+        </div>
+
+        <script src="./script.js"></script>
+    </body>
 </html>
