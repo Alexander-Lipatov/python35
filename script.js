@@ -96,23 +96,89 @@ circle.returnInfoCircle();
 // ■ метод getHtml(), который возвращает html код в виде строки, включая html код вложенных элементов.
 
 class HtmlElement {
-  constructor(tagName, isClosing = false, content = "") {
+  constructor(
+    tagName,
+    content = "",
+    options = {
+      selfClosingTag: false,
+    }
+  ) {
     this._tagName = tagName;
-    this._isClosing = isClosing;
+    this._isClosing = options.selfClosingTag;
     this._content = content;
     this._attributes = [];
     this._styles = [];
-    this._children = []
+    this._children = [];
+    this._options = options;
   }
-  styleObj(name, value) {
-    return { name, value };
+  setAtribute(name, value) {
+    return this._attributes.push({ name, value });
+  }
+  addStyle(name, value) {
+    return this._styles.push({ name, value });
+  }
+  styles() {
+    return this._styles.map((el) => el.name + ":" + el.value).join(";");
   }
 
-  getHtml(){
-    const el = document.createElement(this._tagName)
-    document.body.appendChild(el)
+  prepend(child) {
+    this._children.shift(child);
+  }
+  append(child) {
+    this._children.push(child);
+  }
+
+  getHtml() {
+    let html = "";
+    if (this._isClosing) {
+      html += `<${this._tagName} value="${this._content}" ${this._attributes
+        .map((el) => el.name + '="' + el.value + '"')
+        .join(" ")} />`;
+    } else {
+      html += `<${this._tagName} ${this._attributes
+        .map((el) => el.name + '="' + el.value + '"')
+        .join(" ")}>
+      ${this._content}
+      ${this._children.map((el) => el.getHtml()).join("\n")}
+      </${this._tagName}>`;
+    }
+    return html;
   }
 }
 
-const divWrapper = new HtmlElement('div', false, 'blablabla')
-divWrapper.getHtml()
+const mainBox = new HtmlElement("div");
+mainBox.setAtribute("id", "wrapper");
+mainBox.addStyle("display", "flex");
+mainBox.setAtribute("style", mainBox.styles());
+
+const div = new HtmlElement("div");
+div.addStyle('width', '300px')
+div.addStyle('margin', '10px')
+
+const h3 = new HtmlElement("h3", "Whath is Lorem Ipsum?");
+
+const img = new HtmlElement("img", '', { selfClosingTag: true });
+img.setAtribute("src", "./img.jpg");
+img.addStyle('width', '100%')
+img.setAtribute('alt', 'pageImage')
+img.setAtribute('style', img.styles())
+
+const p = new HtmlElement(
+  "p",
+  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis consequatur sed eligendi rerum, est, quasi tempore, quaerat assumenda dolores tenetur architecto odit quia impedit. Eius ipsam fugit, culpa sunt id libero nam. Unde iure, quis debitis quas numquam necessitatibus minima aperiam voluptatum totam, quod in. Suscipit reprehenderit dolore veniam accusamus architecto doloribus sint eum iure corporis consectetur nostrum expedita illum laborum porro facilis, vitae possimus quae sapiente vel neque recusandae, illo aut vero odio. Ea laborum vero amet! Ut id esse facere doloribus nisi corporis fuga? Sint quidem laudantium inventore debitis necessitatibus repellendus temporibus impedit. Saepe, aliquid eos. Aliquam, rem."
+);
+
+p.addStyle('text-aling', 'justify')
+
+div.append(h3);
+div.append(img);
+div.append(p);
+mainBox.append(div);
+mainBox.append(div);
+mainBox.append(div);
+mainBox.append(div);
+mainBox.append(div);
+mainBox.append(div);
+
+
+document.body.insertAdjacentHTML('beforeend', mainBox.getHtml())
