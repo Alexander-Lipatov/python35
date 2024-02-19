@@ -107,4 +107,12 @@ class HtmlElement {
   styleObj(name, value) {
     return { name, value };
   }
+
+  getHtml(){
+    const el = document.createElement(this._tagName)
+    document.body.appendChild(el)
+  }
 }
+
+const divWrapper = new HtmlElement('div', false, 'blablabla')
+divWrapper.getHtml()
