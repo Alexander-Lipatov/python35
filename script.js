@@ -152,33 +152,87 @@ mainBox.addStyle("display", "flex");
 mainBox.setAtribute("style", mainBox.styles());
 
 const div = new HtmlElement("div");
-div.addStyle('width', '300px')
-div.addStyle('margin', '10px')
+div.addStyle("width", "300px");
+div.addStyle("margin", "10px");
+div.setAtribute("style", div.styles());
 
 const h3 = new HtmlElement("h3", "Whath is Lorem Ipsum?");
 
-const img = new HtmlElement("img", '', { selfClosingTag: true });
+const img = new HtmlElement("img", "", { selfClosingTag: true });
 img.setAtribute("src", "./img.jpg");
-img.addStyle('width', '100%')
-img.setAtribute('alt', 'pageImage')
-img.setAtribute('style', img.styles())
+img.addStyle("width", "100%");
+img.setAtribute("alt", "pageImage");
+img.setAtribute("style", img.styles());
 
 const p = new HtmlElement(
   "p",
   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis consequatur sed eligendi rerum, est, quasi tempore, quaerat assumenda dolores tenetur architecto odit quia impedit. Eius ipsam fugit, culpa sunt id libero nam. Unde iure, quis debitis quas numquam necessitatibus minima aperiam voluptatum totam, quod in. Suscipit reprehenderit dolore veniam accusamus architecto doloribus sint eum iure corporis consectetur nostrum expedita illum laborum porro facilis, vitae possimus quae sapiente vel neque recusandae, illo aut vero odio. Ea laborum vero amet! Ut id esse facere doloribus nisi corporis fuga? Sint quidem laudantium inventore debitis necessitatibus repellendus temporibus impedit. Saepe, aliquid eos. Aliquam, rem."
 );
 
-p.addStyle('text-aling', 'justify')
+p.addStyle("text-aling", "justify");
 
 div.append(h3);
 div.append(img);
 div.append(p);
 mainBox.append(div);
 mainBox.append(div);
-mainBox.append(div);
-mainBox.append(div);
-mainBox.append(div);
-mainBox.append(div);
 
+document.body.insertAdjacentHTML("beforeend", mainBox.getHtml());
 
-document.body.insertAdjacentHTML('beforeend', mainBox.getHtml())
+// Реализовать класс, который описывает css класс.
+// Класс CssClass должен содержать внутри себя:
+// ■ название css класса;
+// ■ массив стилей;
+// ■ метод для установки стиля;
+// ■ метод для удаления стиля;
+// ■ метод getCss(), который возвращает css код в виде стро-
+// ки.
+
+class CssClass {
+  #styles;
+  #className;
+  constructor(className) {
+    this.#className = className;
+    this.#styles = [];
+  }
+
+  addStyle(name, value){
+    return this.#styles.push({name, value})
+  }
+
+  applyStyle(){
+    const style = this.#styles.map((el) => el.name + ":" + el.value).join(";")
+    console.log(style);
+  }
+
+  getCss() {
+    const css = "";
+    return css;
+  }
+
+  static generateStyleTag() {
+    const style = document.head.insertAdjacentHTML(
+      "afterbegin",
+      "<style></style>"
+    );
+    return style;
+  }
+}
+
+// <style>
+// .class {
+//  color:red;
+//
+// }
+// .class {
+//  color:red;
+//
+// }
+// </style>
+
+CssClass.generateStyleTag();
+const className1 = new CssClass("className1");
+className1.addStyle('color', 'red')
+className1.addStyle('font-size', '50px')
+className1.applyStyle()
+console.log(className1.getCss());
