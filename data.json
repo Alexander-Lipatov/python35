@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Whath is Lorem Ipsum?",
+    "img": "./img.jpg",
+    "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis consequatur sed eligendi rerum, est, quasi tempore, quaerat assumenda dolores tenetur architecto odit quia impedit. Eius ipsam fugit, culpa sunt id libero nam. Unde iure, quis debitis quas numquam necessitatibus minima aperiam voluptatum totam, quod in. Suscipit reprehenderit dolore veniam accusamus architecto doloribus sint eum iure corporis consectetur nostrum expedita illum laborum porro facilis, vitae possimus quae sapiente vel neque recusandae, illo aut vero odio. Ea laborum vero amet! Ut id esse facere doloribus nisi corporis fuga? Sint quidem laudantium inventore debitis necessitatibus repellendus temporibus impedit. Saepe, aliquid eos. Aliquam, rem.",
+    "link": "https://www.lipsum.com/"
+  },
+  {
+    "id": 2,
+    "title": "Whath is Lorem Ipsum?",
+    "img": "./img.jpg",
+    "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis consequatur sed eligendi rerum, est, quasi tempore, quaerat assumenda dolores tenetur architecto odit quia impedit. Eius ipsam fugit, culpa sunt id libero nam. Unde iure, quis debitis quas numquam necessitatibus minima aperiam voluptatum totam, quod in. Suscipit reprehenderit dolore veniam accusamus architecto doloribus sint eum iure corporis consectetur nostrum expedita illum laborum porro facilis, vitae possimus quae sapiente vel neque recusandae, illo aut vero odio. Ea laborum vero amet! Ut id esse facere doloribus nisi corporis fuga? Sint quidem laudantium inventore debitis necessitatibus repellendus temporibus impedit. Saepe, aliquid eos. Aliquam, rem.",
+    "link": "https://www.lipsum.com/"
+  }
+]
