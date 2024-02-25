@@ -156,11 +156,13 @@ class HtmlElement {
 // ки.
 
 class CssClass {
+  static instances = []
   #styles;
   #className;
   constructor(className) {
     this.#className = className;
     this.#styles = [];
+    CssClass.instances.push(this)
   }
 
   addStyle(name, value) {
@@ -178,6 +180,10 @@ class CssClass {
   getCss() {
     const cssCode = `.${this.#className}{${this.#applyStyle()}}\n`;
     return cssCode;
+  }
+
+  static getAllInstances(){
+    return CssClass.instances
   }
 }
 
@@ -261,7 +267,7 @@ div.append(img);
 div.append(p);
 div.append(a);
 
-const html = new HtmlBlock([wrapClass, blockClass, imgClass, textClass], mainBox);
+const html = new HtmlBlock(CssClass.getAllInstances(), mainBox);
 html.getCode();
 
 
