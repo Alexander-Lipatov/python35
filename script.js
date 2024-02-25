@@ -146,39 +146,6 @@ class HtmlElement {
   }
 }
 
-const mainBox = new HtmlElement("div");
-mainBox.setAtribute("id", "wrapper");
-mainBox.addStyle("display", "flex");
-mainBox.setAtribute("style", mainBox.styles());
-
-const div = new HtmlElement("div");
-div.addStyle("width", "300px");
-div.addStyle("margin", "10px");
-div.setAtribute("style", div.styles());
-
-const h3 = new HtmlElement("h3", "Whath is Lorem Ipsum?");
-
-const img = new HtmlElement("img", "", { selfClosingTag: true });
-img.setAtribute("src", "./img.jpg");
-img.addStyle("width", "100%");
-img.setAtribute("alt", "pageImage");
-img.setAtribute("style", img.styles());
-
-const p = new HtmlElement(
-  "p",
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis consequatur sed eligendi rerum, est, quasi tempore, quaerat assumenda dolores tenetur architecto odit quia impedit. Eius ipsam fugit, culpa sunt id libero nam. Unde iure, quis debitis quas numquam necessitatibus minima aperiam voluptatum totam, quod in. Suscipit reprehenderit dolore veniam accusamus architecto doloribus sint eum iure corporis consectetur nostrum expedita illum laborum porro facilis, vitae possimus quae sapiente vel neque recusandae, illo aut vero odio. Ea laborum vero amet! Ut id esse facere doloribus nisi corporis fuga? Sint quidem laudantium inventore debitis necessitatibus repellendus temporibus impedit. Saepe, aliquid eos. Aliquam, rem."
-);
-
-p.addStyle("text-aling", "justify");
-
-div.append(h3);
-div.append(img);
-div.append(p);
-mainBox.append(div);
-mainBox.append(div);
-
-document.body.insertAdjacentHTML("beforeend", mainBox.getHtml());
-
 // Реализовать класс, который описывает css класс.
 // Класс CssClass должен содержать внутри себя:
 // ■ название css класса;
@@ -196,43 +163,106 @@ class CssClass {
     this.#styles = [];
   }
 
-  addStyle(name, value){
-    return this.#styles.push({name, value})
+  addStyle(name, value) {
+    return this.#styles.push({ name, value });
   }
 
-  applyStyle(){
-    const style = this.#styles.map((el) => el.name + ":" + el.value).join(";")
+  #applyStyle() {
+    const style = this.#styles
+      .map((el) => el.name + ":" + el.value + ";")
+      .join("");
     console.log(style);
+    return style;
   }
 
   getCss() {
-    const css = "";
-    return css;
-  }
-
-  static generateStyleTag() {
-    const style = document.head.insertAdjacentHTML(
-      "afterbegin",
-      "<style></style>"
-    );
-    return style;
+    const cssCode = `.${this.#className}{${this.#applyStyle()}}\n`;
+    return cssCode;
   }
 }
 
-// <style>
-// .class {
-//  color:red;
-//
-// }
-// .class {
-//  color:red;
-//
-// }
-// </style>
+class HtmlBlock {
+  #classArray;
+  #rootEl;
+  constructor(classArray, rootHtmlElement) {
+    this.#classArray = classArray;
+    this.#rootEl = rootHtmlElement;
+  }
 
-CssClass.generateStyleTag();
-const className1 = new CssClass("className1");
-className1.addStyle('color', 'red')
-className1.addStyle('font-size', '50px')
-className1.applyStyle()
-console.log(className1.getCss());
+  #addClassToStyle() {
+    if (!document.querySelector("style")) {
+      document.body.insertAdjacentHTML("afterbegin", `<style></style>`);
+    }
+    const styleTag = document.querySelector("style");
+    this.#classArray.forEach((cssEl) => {
+      const codeInStyle = styleTag.textContent;
+      const updateStyle = codeInStyle + cssEl.getCss();
+      styleTag.textContent = updateStyle;
+    });
+  }
+
+  #addBlockToHtml() {
+    document.body.insertAdjacentHTML("beforeend", this.#rootEl.getHtml());
+  }
+
+  getCode() {
+    this.#addClassToStyle();
+    this.#addBlockToHtml();
+  }
+}
+
+// ____________ CLASS BLOCK ____________
+
+const wrapClass = new CssClass("wrap");
+wrapClass.addStyle("display", "flex");
+
+const blockClass = new CssClass("block");
+blockClass.addStyle("width", "300px");
+blockClass.addStyle("margin", "auto");
+
+const imgClass = new CssClass("img");
+imgClass.addStyle("width", "100%");
+
+const textClass = new CssClass("text");
+textClass.addStyle("text-align", "justify");
+
+// ____________ ELEMENT BLOCK ____________
+
+const mainBox = new HtmlElement("div");
+mainBox.setAtribute("id", "wrapper");
+mainBox.setAtribute("class", "wrap");
+
+const div = new HtmlElement("div");
+div.setAtribute("class", "block");
+
+const h3 = new HtmlElement("h3", "Whath is Lorem Ipsum?");
+
+const img = new HtmlElement("img", "", { selfClosingTag: true });
+img.setAtribute("src", "./img.jpg");
+img.setAtribute("class", "img");
+img.setAtribute("alt", "pageImage");
+
+const p = new HtmlElement(
+  "p",
+  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis consequatur sed eligendi rerum, est, quasi tempore, quaerat assumenda dolores tenetur architecto odit quia impedit. Eius ipsam fugit, culpa sunt id libero nam. Unde iure, quis debitis quas numquam necessitatibus minima aperiam voluptatum totam, quod in. Suscipit reprehenderit dolore veniam accusamus architecto doloribus sint eum iure corporis consectetur nostrum expedita illum laborum porro facilis, vitae possimus quae sapiente vel neque recusandae, illo aut vero odio. Ea laborum vero amet! Ut id esse facere doloribus nisi corporis fuga? Sint quidem laudantium inventore debitis necessitatibus repellendus temporibus impedit. Saepe, aliquid eos. Aliquam, rem."
+);
+p.setAtribute("class", "text");
+
+const a = new HtmlElement('a', 'More...')
+a.setAtribute('href', 'https://www.lipsum.com/')
+a.setAtribute('target', '_blank')
+
+mainBox.append(div);
+mainBox.append(div);
+mainBox.append(div);
+mainBox.append(div);
+div.append(h3);
+div.append(img);
+div.append(p);
+div.append(a);
+
+const html = new HtmlBlock([wrapClass, blockClass, imgClass, textClass], mainBox);
+html.getCode();
+
+
+
