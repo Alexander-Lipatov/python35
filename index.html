@@ -4,8 +4,81 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+            }
+            html, body{
+                width: 100%;
+                height: 100%;
+            }
+            .container{
+                max-width: 980px;
+                height: 100%;
+                margin: 100px auto;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                align-items: center;
+            }
+            .drop{
+                width: 100px; 
+                height: 200px; 
+                border: 1px dashed black;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .box{
+                width: 100px; 
+                height: 200px; 
+                background-color: darkgray; 
+                border: 1px solid black;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .box p{
+                font-size: 10px;
+                text-align: center;
+                user-select: none;
+
+            }
+        </style>
     </head>
-    <body >
+    <body>
+        <div class="container">
+
+            <div class="drop">
+                <div class="box" draggable="true">
+                    <h2>Box</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Veniam
+                        in, repellendus eius quisquam, dolorem porro blanditiis
+                        debitis
+                        dolor est mollitia voluptates sapiente consectetur quia
+                        iure
+                        repudiandae alias beatae architecto ipsam!</p>
+                </div>
+            </div>
+            <div class="drop">
+
+            </div>
+            <div class="drop">
+
+            </div>
+            <div class="drop">
+
+            </div>
+            <div class="drop">
+
+            </div>
+        </div>
         <script type="module" src="./script.js"></script>
     </body>
 </html>
