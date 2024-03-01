@@ -1,78 +1,110 @@
-const box = document.querySelectorAll(".box");
-const drop = document.querySelectorAll(".drop");
+let manyElem = document.querySelectorAll(".item");
+let manyArea = document.querySelectorAll(".area");
 
-console.log(box);
-console.log(drop);
+let dragElem;
 
-
-box.forEach(item =>{
-  item.addEventListener('dragstart', e =>{
-    console.log(e);
+manyElem.forEach((elem) => {
+  let prevDisplay = elem.style.display;
+  elem.addEventListener("dragstart", (e) => {
+    console.log("dragstart");
+    dragElem = elem;
+    setTimeout(() => {
+      elem.style.display = "none";
+    }, 0);
   });
-})
-
-drop.forEach(item =>{
-  item.addEventListener('dragenter', e =>{
-    console.log(e);
+  elem.addEventListener("dragend", (e) => {
+    console.log("dragend");
+    elem.style.display = prevDisplay;
   });
-})
+  elem.addEventListener("drag", (e) => {});
+});
 
+manyArea.forEach((area) => {
+  area.addEventListener("dragover", (e) => {
+    e.preventDefault();
+  });
+  area.addEventListener("dragenter", (e) => {
+    console.log("dragenter");
+  });
+  area.addEventListener("dragleave", (e) => {
+    console.log("dragleave");
+  });
+  area.addEventListener("drop", (e) => {
+    e.target.appendChild(dragElem);
+  });
+});
 
+ball.onmousedown = function (event) {
+  let shiftX = event.clientX - ball.getBoundingClientRect().left;
+  let shiftY = event.clientY - ball.getBoundingClientRect().top;
 
+  ball.style.position = "absolute";
+  ball.style.zIndex = 1000;
+  document.body.append(ball);
 
-// box.addEventListener("mousedown", (e) => {
-//   box.style.position = "absolute";
-//   box.style.zIndex = 1000;
+  moveAt(event.pageX, event.pageY);
 
-//   document.body.append(box);
-//   console.log(e.pageX);
-//   console.log(e.pageY);
-//   moveAt(e.pageX, e.pageY);
+  // переносит мяч на координаты (pageX, pageY),
+  // дополнительно учитывая изначальный сдвиг относительно указателя мыши
+  function moveAt(pageX, pageY) {
+    ball.style.left = pageX - shiftX + "px";
+    ball.style.top = pageY - shiftY + "px";
+  }
 
-//   function moveAt(pageX, pageY) {
-//     box.style.left = pageX - box.offsetWidth / 2 + "px";
-//     box.style.top = pageY - box.offsetHeight / 2 + "px";
-//   }
-//   function onMouseMove(event) {
-//     moveAt(event.pageX, event.pageY);
-//   }
+  function onMouseMove(event) {
+    moveAt(event.pageX, event.pageY);    
+  }
 
-//   document.addEventListener("mousemove", onMouseMove);
+  // передвигаем мяч при событии mousemove
+  document.addEventListener("mousemove", onMouseMove);
 
-//   box.onmouseup = function () {
-//     document.removeEventListener("mousemove", onMouseMove);
-//     box.onmouseup = null;
-//   };
+  // отпустить мяч, удалить ненужные обработчики
+  ball.onmouseup = function () {
+    console.log("up");
+    document.removeEventListener("mousemove", onMouseMove);
+    ball.onmouseup = null;
+  };
+};
+
+// manyElem.forEach((elem) => {
+//   let displayStyle
+//   elem.addEventListener("dragstart", function (e) {
+//     console.log("dragstart");
+
+//     globalElem = elem; // Записываю стартовый елемент в глобальную переменную
+//     displayStyle = e.target.style.display
+//     setTimeout(() => (e.target.style.display = "none"), 0); // Скрываем элемент в момент перетаскивания
+//   });
+
+//   elem.addEventListener("dragend", function (e) {
+//     console.log("dragend");
+
+//     elem.style.display = displayStyle; // возвращаем элемент в
+
+//     var ghostElem = document.querySelector(".ghost");
+//     if (ghostElem) {
+//       ghostElem.parentNode.removeChild(ghostElem);
+//     }
+//   });
 // });
 
-// box.addEventListener("dragstart", (e) => {
-//   console.log("dragstart", e);
-//   console.dir(box);
-//   box.style.zIndex = '-1'
-//   e.dataTransfer.setData("text/plain", box.outerHTML);
-// });
-// box.addEventListener("drag", (e) => {
-//   // console.log("drag", e);
-// });
-// box.addEventListener("dragend", (e) => {
-//   console.log("dragend", e);
-
-//   box.style.transition = "all 3s";
-// });
-
-// drop.addEventListener("dragenter", (e) => {
-//   console.log("dragenter", e);
-// });
-// drop.addEventListener("dragleave", (e) => {
-//   console.log("dragleave", e);
-// });
-// drop.addEventListener("dragover", (e) => {
-//   e.preventDefault()
-//   // console.log("dragover", e);
-// });
-// drop.addEventListener("drop", (e) => {
-//   var data = e.dataTransfer.getData("text/plain");
-
-//   // Вставляем данные в область бросания
-//   drop.innerHTML = data;
+// manyArea.forEach((area) => {
+//   area.addEventListener("dragover", function (event) {
+//     console.log("dragover");
+//     event.preventDefault();
+//   });
+//   area.addEventListener("dragenter", (e) => {
+//     console.log("dragenter");
+//     e.target.classList.add("hover");
+//   });
+//   area.addEventListener("dragleave", function (e) {
+//     console.log("dragleave");
+//     e.target.classList.remove("hover");
+//   });
+//   area.addEventListener("drop", (e) => {
+//     console.log("drop");
+//     e.target.classList.remove("hover");
+//     e.target.appendChild(globalElem);
+//     globalElem.style.display = "flex";
+//   });
 // });

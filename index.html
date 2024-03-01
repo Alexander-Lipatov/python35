@@ -8,6 +8,7 @@
             *{
                 margin:0;
                 padding:0;
+                list-style: none;
             }
             html, body{
                 width: 100%;
@@ -15,70 +16,128 @@
             }
             .container{
                 max-width: 980px;
-                height: 100%;
+                height: 75%;
                 margin: 100px auto;
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: space-around;
-                align-items: center;
+                gap: 20px;
             }
-            .drop{
-                width: 100px; 
-                height: 200px; 
-                border: 1px dashed black;
+            .container>div{
                 display: flex;
+                flex: 1;
                 flex-direction: column;
-                justify-content: center;
-                align-items: center;
-            }
-            .box{
-                width: 100px; 
-                height: 200px; 
-                background-color: darkgray; 
-                border: 1px solid black;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                z-index: 1000;
+                gap: 20px;
             }
 
-            .box p{
-                font-size: 10px;
+            .title-area{
+                flex: 1;
+                font-size: 14px;
+                font-style: italic;
+                display: flex;
+                justify-content: center;
+                background-color: rgb(243, 243, 243);
+                border: 1px solid gray ;
+                border-radius: 6px;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .area{
+                display: flex;
+                flex-direction: column;
+                height: 100%;
                 text-align: center;
-                user-select: none;
-
+                gap: 15px;
             }
+
+            .item{
+                border: 1px gainsboro solid;
+                border-radius: 3px;
+            }
+            .item:hover{
+                cursor: pointer;
+                box-shadow: 1px 2px 1px lightgray;
+            }
+            
+
+            
+            
         </style>
     </head>
     <body>
+        <div id="ball" style="width: 20px; height: 20px; background-color: red;"></div>
         <div class="container">
-
-            <div class="drop">
-                <div class="box" draggable="true">
-                    <h2>Box</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Veniam
-                        in, repellendus eius quisquam, dolorem porro blanditiis
-                        debitis
-                        dolor est mollitia voluptates sapiente consectetur quia
-                        iure
-                        repudiandae alias beatae architecto ipsam!</p>
+            <div class="todo ">
+                <div class="title-area">
+                    <h2>Todo</h2>
                 </div>
+                <ul class="area">
+                    <li class="item" draggable="true">1. Задача 1</li>
+                    <li class="item" draggable="true">2. Задача 2</li>
+                    <li class="item" draggable="true">3. Задача 3</li>
+                </ul>
             </div>
-            <div class="drop">
+            <div class="in-progress">
+                <div class="title-area">
+                    <h2>In progress</h2>
+                </div>
+                <ul class="area">
+
+                </ul>
 
             </div>
-            <div class="drop">
+            <div class="review">
+
+                <div class="title-area">
+                    <h2>Review</h2>
+                </div>
+                <ul class="area">
+
+                </ul>
+            </div>
+            <div class="done">
+                <div class="title-area">
+                    <h2>Done</h2>
+
+                </div>
+                <ul class="area">
+
+                </ul>
+            </div>
+            <!-- <div class="todo">
+
+                <ul class="list">
+                    <li class="item">
+                        <h3>Lorem, ipsum dolor.</h3>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit. Aliquam, illo. Dicta sequi sunt sed
+                            temporibus.</p>
+                    </li>
+                    <li class="item">
+                        <h3>Lorem, ipsum dolor.</h3>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit. Aliquam, illo. Dicta sequi sunt sed
+                            temporibus.</p>
+                    </li><li class="item">
+                        <h3>Lorem, ipsum dolor.</h3>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing
+                            elit. Aliquam, illo. Dicta sequi sunt sed
+                            temporibus.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="in-progress">
 
             </div>
-            <div class="drop">
+            <div class="review">
 
             </div>
-            <div class="drop">
+            <div class="done">
 
-            </div>
+            </div> -->
         </div>
+
         <script type="module" src="./script.js"></script>
     </body>
 </html>
