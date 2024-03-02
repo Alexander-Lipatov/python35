@@ -3,34 +3,50 @@ let manyArea = document.querySelectorAll(".area");
 
 let dragElem;
 
-manyElem.forEach((elem) => {
-  let prevDisplay = elem.style.display;
-  elem.addEventListener("dragstart", (e) => {
-    console.log("dragstart");
-    dragElem = elem;
-    setTimeout(() => {
-      elem.style.display = "none";
-    }, 0);
-  });
-  elem.addEventListener("dragend", (e) => {
-    console.log("dragend");
-    elem.style.display = prevDisplay;
-  });
-  elem.addEventListener("drag", (e) => {});
-});
+// manyElem.forEach((elem) => {
+//   let prevDisplay = elem.style.display;
+//   elem.addEventListener("dragstart", (e) => {
+//     console.log("dragstart");
+//     dragElem = elem;
+//     setTimeout(() => {
+//       elem.style.display = "none";
+//     }, 0);
+//   });
+//   elem.addEventListener("dragend", (e) => {
+//     console.log("dragend");
+//     elem.style.display = prevDisplay;
+//   });
+//   elem.addEventListener("drag", (e) => {});
+// });
 
-manyArea.forEach((area) => {
-  area.addEventListener("dragover", (e) => {
-    e.preventDefault();
-  });
-  area.addEventListener("dragenter", (e) => {
-    console.log("dragenter");
-  });
-  area.addEventListener("dragleave", (e) => {
-    console.log("dragleave");
-  });
-  area.addEventListener("drop", (e) => {
-    e.target.appendChild(dragElem);
+// manyArea.forEach((area) => {
+//   area.addEventListener("dragover", (e) => {
+//     e.preventDefault();
+//   });
+//   area.addEventListener("dragenter", (e) => {
+//     console.log("dragenter");
+//   });
+//   area.addEventListener("dragleave", (e) => {
+//     console.log("dragleave");
+//   });
+//   area.addEventListener("drop", (e) => {
+//     const target = e.target.closest('.area')
+//     // console.log(target)
+//     target.appendChild(dragElem);
+//   });
+// });
+
+manyElem.forEach((elem) => {
+  elem.addEventListener("mousedown", (e) => {
+    console.log(e);
+    let shiftX = e.clientX - ball.getBoundingClientRect().left;
+    let shiftY = e.clientY - ball.getBoundingClientRect().top;
+    ball.style.position = "absolute";
+    ball.style.zIndex = 1000;
+    document.body.append(ball);
+    elem.addEventListener("mausemove", (e) => {
+      console.log(e);
+    });
   });
 });
 
@@ -52,7 +68,7 @@ ball.onmousedown = function (event) {
   }
 
   function onMouseMove(event) {
-    moveAt(event.pageX, event.pageY);    
+    moveAt(event.pageX, event.pageY);
   }
 
   // передвигаем мяч при событии mousemove
