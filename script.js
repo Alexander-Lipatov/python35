@@ -1,80 +1,119 @@
-let manyElem = document.querySelectorAll(".item");
-let manyArea = document.querySelectorAll(".area");
+let data = [
+  {
+    title: "Корзина",
+    products: ['Яблоки', 'Бананы', 'Арбуз', 'Манка', 'Рис', 'Помидоры', 'Огурцы',],
+  },
+  {
+    title: "Овощи",
+    products: [],
+  },
+  {
+    title: "Фрукты",
+    products: [],
+  },
+  {
+    title: "Крупа",
+    products: [],
+  },
+];
 
-let dragElem;
 
-let currentDroppable = null;
+let screenX
+let screenY
+let windowScreenX
+let windowScreenY
 
-manyElem.forEach((elem) => {
-  elem.onmousedown = function (event) {
-    let areaBuf 
-    let shiftX = event.clientX - elem.getBoundingClientRect().left;
-    let shiftY = event.clientY - elem.getBoundingClientRect().top;
+document.addEventListener('mousemove', e=>{
+  screenX = e.screenX
+  screenY = e.screenY
+  windowScreenY = innerHeight
+  windowScreenX = innerWidth
 
-    elem.style.position = "absolute";
-    elem.style.zIndex = 1000;
-    elem.style.width = "230px";
-    elem.style.textAlign = 'center'
-    elem.style.background = 'white'
-    document.body.append(elem);
+  console.log(screenX, screenY);
+  console.log(windowScreenX, windowScreenY);
 
 
-    moveAt(event.pageX, event.pageY);
+  var isOutsideWindow = (screenX < 0 || screenY < 0 || screenX > windowScreenX || screenY > windowScreenY);
+})
 
-    function moveAt(pageX, pageY) {
-      elem.style.left = pageX - shiftX + "px";
-      elem.style.top = pageY - shiftY + "px";
+
+
+let draggableItems = document.querySelectorAll(".item");
+let dropAreas = document.querySelectorAll(".area");
+
+draggableItems.forEach((items) => {
+  items.onmousedown = function (event) {
+    let currentDropArea = null;
+    let initialDropArea = event.target.closest(".area");
+    let shiftX = event.clientX - items.getBoundingClientRect().left;
+    let shiftY = event.clientY - items.getBoundingClientRect().top;
+
+    items.style.position = "absolute";
+    items.style.zIndex = 1000;
+    items.style.width = "230px";
+    items.style.textAlign = "center";
+    items.style.background = "white";
+8    
+    // document.body.insertAdjacentElement("afterbegin", items);
+
+    moveItemAt(event.pageX, event.pageY);
+
+    
+
+    function moveItemAt(pageX, pageY) {
+      items.style.left = pageX - shiftX + "px";
+      items.style.top = pageY - shiftY + "px";
     }
 
     function onMouseMove(event) {
-      moveAt(event.pageX, event.pageY);
+      moveItemAt(event.pageX, event.pageY);
 
-      elem.hidden = true;
+      items.hidden = true;
       let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-      elem.hidden = false;
-
-      if (!area) return;
+      items.hidden = false;
 
       let areaBelow = elemBelow.closest(".area");
-      // console.log('droppableBelow', droppableBelow);
 
-      if (currentDroppable != areaBelow) {
-        if (currentDroppable) {
-          // null если мы были не над droppable до этого события
-          // (например, над пустым пространством)
-          leaveDroppable(currentDroppable);
+      if (areaBelow && !areaBelow.contains(items)) {
+        initialDropArea.appendChild(items);
+      }
+
+      if (currentDropArea != areaBelow) {
+        if (currentDropArea) {
+          console.log("выходим");
+          leaveDropArea(currentDropArea);
         }
-        currentDroppable = droppableBelow;
-        if (currentDroppable) {
-          // null если мы не над droppable сейчас, во время этого события
-          // (например, только что покинули droppable)
-          areaBuf = currentDroppable
-          enterDroppable(currentDroppable);
+
+        currentDropArea = areaBelow;
+        if (currentDropArea) {
+          console.log("входим");
+          enterDropArea(currentDropArea);
         }
       }
     }
 
     document.addEventListener("mousemove", onMouseMove);
 
-    elem.onmouseup = function (e) {
+    items.onmouseup = function (e) {
       document.removeEventListener("mousemove", onMouseMove);
-      elem.removeAttribute('style')
-      console.log(areaBuf);
-      areaBuf.appendChild(elem)
-      areaBuf.style.background = 'white'
-      elem.onmouseup = null;
+      items.removeAttribute("style");
+      if (currentDropArea) {
+        currentDropArea.appendChild(items);
+        currentDropArea.style.background = "white";
+      }
+      items.onmouseup = null;
     };
   };
 
-  function enterDroppable(elem) {
+  function enterDropArea(elem) {
     elem.style.background = "pink";
   }
 
-  function leaveDroppable(elem) {
+  function leaveDropArea(elem) {
     elem.style.background = "";
   }
 
-  elem.ondragstart = function () {
+  items.ondragstart = function () {
     return false;
   };
 });
