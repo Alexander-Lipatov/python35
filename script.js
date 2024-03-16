@@ -18,23 +18,23 @@ let data = [
 ];
 
 
-let screenX
-let screenY
-let windowScreenX
-let windowScreenY
+// let screenX
+// let screenY
+// let windowScreenX
+// let windowScreenY
 
-document.addEventListener('mousemove', e=>{
-  screenX = e.screenX
-  screenY = e.screenY
-  windowScreenY = innerHeight
-  windowScreenX = innerWidth
+// document.addEventListener('mousemove', e=>{
+//   screenX = e.screenX
+//   screenY = e.screenY
+//   windowScreenY = innerHeight
+//   windowScreenX = innerWidth
 
-  console.log(screenX, screenY);
-  console.log(windowScreenX, windowScreenY);
+//   console.log(screenX, screenY);
+//   console.log(windowScreenX, windowScreenY);
 
 
-  var isOutsideWindow = (screenX < 0 || screenY < 0 || screenX > windowScreenX || screenY > windowScreenY);
-})
+//   var isOutsideWindow = (screenX < 0 || screenY < 0 || screenX > windowScreenX || screenY > windowScreenY);
+// })
 
 
 
@@ -72,6 +72,11 @@ draggableItems.forEach((items) => {
       let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
       items.hidden = false;
 
+      console.dir(elemBelow);
+    //   console.log(getComputedStyle(elemBelow).width/2);
+
+    //   if
+
       let areaBelow = elemBelow.closest(".area");
 
       if (areaBelow && !areaBelow.contains(items)) {
@@ -106,7 +111,7 @@ draggableItems.forEach((items) => {
   };
 
   function enterDropArea(elem) {
-    elem.style.background = "pink";
+    // elem.style.background = "pink";
   }
 
   function leaveDropArea(elem) {
