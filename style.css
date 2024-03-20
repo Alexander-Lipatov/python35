@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html, body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    width: 50%;
+    height: 50%;
+    background-color: lightgray;
+    border-radius: 15px;
+    padding: 15px 20px;
+}
+
+header{
+    padding: 10px;
+}

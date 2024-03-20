@@ -1,19 +1,32 @@
-let str = "JaVa123 ScrRipT";
+const searchLoginForm = document.getElementById('search-login')
 
-let newStr = str
-  .split(" ")
-  .map((item) => {
-    let newAr = item.split("").map((item) => {
-      if (item === item.toLowerCase()) {
-        item = item.toUpperCase();
-      } else if (item === item.toUpperCase()) {
-        item = item.toLowerCase();
-      }
-      return item;
-    });
-    return newAr.join("");
-  })
-  .join(" ");
+searchLoginForm.addEventListener('submit', async (e)=>{
+  e.preventDefault()
+  const login = searchLoginForm.querySelector('input').value;
+  const profileData = await getGitProfile(login)
+  renderProfileBlock(profileData)
+  console.log(profileData);
 
-console.log(str);
-console.log(newStr);
+})
+
+
+async function getGitProfile(login){
+  const data = await fetch(`https://api.github.com/users/${login}`)
+  return await data.json()
+}
+
+function renderProfileBlock(data){
+  const profileBlockHtml = document.querySelector('main')
+  const html = `
+    <div>
+      <div>
+      <img width="200" src="${data.avatar_url}" />
+      </div>
+      <div></div>
+      <div></div>
+    </div>
+    <div></div>
+  `
+  profileBlockHtml.innerHTML = html
+
+}
