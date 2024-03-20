@@ -17,7 +17,6 @@ searchLoginForm.addEventListener("submit", async (e) => {
 async function getGitProfile(login) {
   const data = await fetch(`https://api.github.com/users/${login}`);
   if (!data.ok) return null;
-  
   return await data.json();
 }
 
