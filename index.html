@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="logo">Current Weather</h1>
+      <div class="search">
+        <form id="weather">
+          <input type="text" name="city" placeholder="Введите город " />
+          <button type="submit" name="btn">Search</button>
+        </form>
+      </div>
+    </header>
+    <main>
+      <div id="weatherInfo" class="weather-block" hidden></div>
+      <div id="weatherInfoDetail" class="weather-block" hidden></div>
+      <div id="weatherError" class="weather-block" hidden></div>
+
+    </main>
+    <footer></footer>
+
     <script src="./script.js"></script>
-</body>
+  </body>
 </html>

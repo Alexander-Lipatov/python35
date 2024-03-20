@@ -1,61 +1,108 @@
-// Задание 3
-// Создать объект, описывающий время (часы, минуты, секун-
-// ды), и следующие функции для работы с этим объектом.
-//      1. Функция вывода времени на экран.
-//      2. Функция изменения времени на переданное количество
-// секунд.
-//      3. Функция изменения времени на переданное количество
-// минут.
-//      4. Функция изменения времени на переданное количество
-// часов.
-// Учтите, что в последних 3-х функциях, при изменении одной
-// части времени, может измениться и другая. Например: если ко
-// времени «20:30:45» добавить 30 секунд, то должно получиться
-// «20:31:15», а не «20:30:75».
+const API = "https://api.openweathermap.org/data/2.5";
+const apiKey = "";
+const weatherForm = document.forms.weather;
 
-function createNowTime() {
-  const date = new Date();
-  return {
-    hours: date.getHours(),
-    minutes: date.getMinutes(),
-    seconds: date.getSeconds(),
-  };
+weatherForm.onsubmit = (e) => {
+  e.preventDefault();
+  getWeather(e.srcElement.city.value);
+};
+
+async function getWeather(city) {
+  const getWeather = await getCurrentWeather(city);
+  const getHourly = await getHourlyWeather(city);
+  if (getWeather) renderWeather(getWeather);
+  if (getHourly) renderHourlyWeather(getHourly.list.slice(1, 7));
+  if (!getWeather && !getHourly) renderError('Check city')
 }
 
-function printTime(timeObj) {
-  console.log(
-    `Текущее время ${timeObj.hours}:${timeObj.minutes}:${timeObj.seconds}`
+async function getCurrentWeather(city) {
+  const getWeather = await fetch(
+    `${API}/weather?q=${city}&units=metric&appid=${apiKey}`
   );
+  if (getWeather.ok) {
+    return await getWeather.json();
+  }
 }
 
-function validateTime(timeObj) {
-  if (timeObj.seconds >= 60) {
-    timeObj.minutes += Math.floor(timeObj.seconds / 60);
-    timeObj.seconds = timeObj.seconds % 60;
+async function getHourlyWeather(city) {
+  const hourlyWeather = await fetch(
+    `${API}/forecast?q=${city}&units=metric&appid=${apiKey}`
+  );
+  if (hourlyWeather.ok) {
+    return await hourlyWeather.json();
   }
-  if (timeObj.minutes >= 60) {
-    timeObj.hours += Math.floor(timeObj.minutes / 60);
-    timeObj.minutes %= 60;
-  }
-  if (timeObj.hours >= 24) {
-    timeObj.hours %= 24;
-  }
-  return { ...timeObj };
-}
-function addSeconds(timeObj, seconds = 30) {
-  timeObj.seconds += seconds;
-  validateTime(timeObj);
-  return { ...timeObj };
 }
 
-function addMinutes(timeObj, minutes = 30) {
-  timeObj.minutes += minutes;
-  validateTime(timeObj);
-  return { ...timeObj };
+function getImageWeather(weatherIconCode) {
+  return `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
 }
 
-function addHourse(timeObj, hours = 30) {
-  timeObj.hours += hours;
-  validateTime(timeObj);
-  return { ...timeObj };
+function renderWeather(weatherData) {
+  const weatherBlock = document.querySelector("#weatherInfo");
+  weatherBlock.hidden = false;
+  weatherBlock.style.display = "flex";
+  weatherBlock.innerHTML = `
+    <div class="location-n-date">
+        <h2>${weatherData.name}</h2>
+        <h2>${new Date(weatherData.dt * 1000).toLocaleDateString()}</h2>
+    </div>
+    <div class="detailWeather">
+        <div class="imageInfo">
+            <span>${weatherData.weather[0].main}</span>
+            <div class="weather-icon">
+            <img
+                src="${getImageWeather(weatherData.weather[0].icon)}"
+                alt=""
+            />
+            </div>
+        </div>
+        <div class="tempInfo">${weatherData.main.temp.toFixed()}&deg;С</div>
+        <div class="otherInfo">
+            <div><span>Min temperature</span><span>${weatherData.main.temp_min.toFixed()}&deg;С</span></div>
+            <div><span>Max temperature</span><span>${weatherData.main.temp_max.toFixed()}&deg;С</span></div>
+            <div><span>Wind speed(km/h)</span><span>${
+              weatherData.wind.speed
+            }</span></div>
+            </ul>
+        </div>
+    </div>
+    `;
+}
+
+function renderHourlyWeather(hourlyWeather = []) {
+  const weatherDayliBlock = document.getElementById("weatherInfoDetail");
+  weatherDayliBlock.style.display = "flex";
+
+  let html = `
+  <h2 style="margin:30px 0">Weather</h2>
+  <div style="display:flex; gap:20px">
+  <div class="weatherItem">
+  <p>Время:</p>
+  <div style="height:100px"></div>
+  <p>Forecast:</p>
+  <p>Temp:</p>
+  <p>Wind:</p>
+  </div>
+  `;
+
+  hourlyWeather.forEach((hourlyWeatherItem) => {
+    html += `
+      <div class="weatherItem">
+      <p>${new Date(hourlyWeatherItem.dt_txt).getHours()}:00</p>
+      <img src="${getImageWeather(
+        hourlyWeatherItem.weather[0].icon
+      )}" alt="Погодная иконка">
+          <p>${hourlyWeatherItem.weather[0].main}</p>
+          <p>${hourlyWeatherItem.main.temp.toFixed()}°C</p>
+          <p>${hourlyWeatherItem.wind.speed} m/s</p>
+          </div>
+          `;
+  });
+  html += `</div>`;
+  weatherDayliBlock.innerHTML = html;
+  weatherDayliBlock.hidden = false;
+}
+
+function renderError(error) {
+  alert(error)
 }
