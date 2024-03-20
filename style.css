@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+body{
+    background-color: lightgrey;
+    padding: 10px 50px;
+    width: 900px;
+    margin: 0 auto;
+}
+
+main{
+    margin: 40px 0;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weather-block{
+    /* display: flex; */
+    flex-direction: column;
+    background-color: white;
+    padding: 20px 40px;
+    border-radius: 15px;
+
+}
+
+.location-n-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0 5px;
+
+}
+
+.detailWeather{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0 10px;
+
+}
+
+.imageInfo{
+    font-size: 16px;
+}
+
+
+.otherInfo{
+    /* display: flex; */
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    flex-direction: column;
+}
+
+.otherInfo > div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0;
+}
+.otherInfo >div>span:last-child{
+    width: 75px;
+    text-align: center;
+}
+
+.tempInfo {
+    font-size: 48px;
+}
+
+.weatherItem{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+}
+
+#weatherInfo, #weatherInfoDetail{
+    margin: 20px 0;
+}
