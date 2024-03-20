@@ -1,40 +1,25 @@
-const API = "https://api.openweathermap.org/data/2.5";
-const apiKey = "";
-const weatherForm = document.forms.weather;
+// Задание 3
+// Создать объект, описывающий время (часы, минуты, секун-
+// ды), и следующие функции для работы с этим объектом.
+//      1. Функция вывода времени на экран.
+//      2. Функция изменения времени на переданное количество
+// секунд.
+//      3. Функция изменения времени на переданное количество
+// минут.
+//      4. Функция изменения времени на переданное количество
+// часов.
+// Учтите, что в последних 3-х функциях, при изменении одной
+// части времени, может измениться и другая. Например: если ко
+// времени «20:30:45» добавить 30 секунд, то должно получиться
+// «20:31:15», а не «20:30:75».
 
-weatherForm.onsubmit = (e) => {
-  e.preventDefault();
-  getWeather(e.srcElement.city.value);
-};
-
-async function getWeather(city) {
-  const getWeather = await getCurrentWeather(city);
-  const getHourly = await getHourlyWeather(city);
-  if (getWeather) renderWeather(getWeather);
-  if (getHourly) renderHourlyWeather(getHourly.list.slice(1, 7));
-  if (!getWeather && !getHourly) renderError('Check city')
-}
-
-async function getCurrentWeather(city) {
-  const getWeather = await fetch(
-    `${API}/weather?q=${city}&units=metric&appid=${apiKey}`
-  );
-  if (getWeather.ok) {
-    return await getWeather.json();
-  }
-}
-
-async function getHourlyWeather(city) {
-  const hourlyWeather = await fetch(
-    `${API}/forecast?q=${city}&units=metric&appid=${apiKey}`
-  );
-  if (hourlyWeather.ok) {
-    return await hourlyWeather.json();
-  }
-}
-
-function getImageWeather(weatherIconCode) {
-  return `https://openweathermap.org/img/wn/${weatherIconCode}@2x.png`;
+function createNowTime() {
+  const date = new Date();
+  return {
+    hours: date.getHours(),
+    minutes: date.getMinutes(),
+    seconds: date.getSeconds(),
+  };
 }
 
 function renderWeather(weatherData) {
